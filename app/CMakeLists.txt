@@ -29,6 +29,17 @@ FetchContent_MakeAvailable(stb)
 add_library(stb_headers INTERFACE)
 target_include_directories(stb_headers INTERFACE ${stb_SOURCE_DIR})
 
+# TODO: Bring in this file https://github.com/meta-quest/Meta-OpenXR-SDK/blob/main/Samples/3rdParty/khronos/openxr/OpenXR-SDK/src/common/xr_linear.h
+# Meta OpenXR SDK
+#FetchContent_Declare(Meta-OpenXR-SDK
+#        GIT_REPOSITORY https://github.com/meta-quest/Meta-OpenXR-SDK.git
+#        GIT_TAG main
+#)
+#FetchContent_MakeAvailable(Meta-OpenXR-SDK)
+#
+#add_library(Meta_OpenXR_SDK_Sample_Headers INTERFACE)
+#target_include_directories(Meta_OpenXR_SDK_Sample_Headers INTERFACE ${stb_SOURCE_DIR})
+
 add_library(meta_quest_openxr_loader SHARED IMPORTED GLOBAL)
 
 if (${CMAKE_BUILD_TYPE} STREQUAL Debug)
