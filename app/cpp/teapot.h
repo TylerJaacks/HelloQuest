@@ -5,9 +5,11 @@
 #ifndef TEAPOT_H_
 #define TEAPOT_H_
 
-int init_teapot ();
-int draw_teapot (int count, float col[3], float *matP, float *matV);
-int delete_teapot ();
+int init_teapot();
 
-#endif /* _EAPOT_H_ */
+int draw_teapot(int count, float col[3], float *matP, float *matV);
+
+int delete_teapot();
+
+#endif /* TEAPOT_H_ */
  

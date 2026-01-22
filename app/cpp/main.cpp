@@ -1,14 +1,13 @@
 #include "app_engine.h"
 
-struct AndroidAppState {
+struct AndroidAppState{
 	ANativeWindow* NativeWindow = nullptr;
 	bool Resumed = false;
 };
 
-static void
-ProcessAndroidCmd (struct android_app* app, int32_t cmd)
+static void ProcessAndroidCmd(struct android_app* app, int32_t cmd)
 {
-	AndroidAppState* appState = (AndroidAppState*)app->userData;
+	auto* appState = (AndroidAppState*)app->userData;
 
 	switch (cmd) {
 		case APP_CMD_START:
@@ -31,7 +30,7 @@ ProcessAndroidCmd (struct android_app* app, int32_t cmd)
 
 		case APP_CMD_DESTROY:
 			LOGI ("APP_CMD_DESTROY");
-			appState->NativeWindow = NULL;
+			appState->NativeWindow = nullptr;
 			break;
 
 			// The window is being shown, get it ready.
@@ -43,15 +42,13 @@ ProcessAndroidCmd (struct android_app* app, int32_t cmd)
 			// The window is being hidden or closed, clean it up.
 		case APP_CMD_TERM_WINDOW:
 			LOGI ("APP_CMD_TERM_WINDOW");
-			appState->NativeWindow = NULL;
+			appState->NativeWindow = nullptr;
 			break;
+        default:
+            break;
 	}
 }
 
-
-/*--------------------------------------------------------------------------- *
- *      M A I N    F U N C T I O N
- *--------------------------------------------------------------------------- */
 void android_main(struct android_app* app)
 {
 	AndroidAppState appState = {};
@@ -69,16 +66,13 @@ void android_main(struct android_app* app)
 			struct android_poll_source* source;
 
 			int timeout = -1; // blocking
+
 			if (appState.Resumed || oxr_is_session_running() || app->destroyRequested)
 				timeout = 0;  // non blocking
 
-			if (ALooper_pollAll(timeout, nullptr, &events, (void**)&source) < 0) {
-				break;
-			}
+			if (ALooper_pollAll(timeout, nullptr, &events, (void**)&source) < 0) break;
 
-			if (source != nullptr) {
-				source->process(app, source);
-			}
+			if (source != nullptr) source->process(app, source);
 		}
 
 		engine.UpdateFrame();
