@@ -15,8 +15,6 @@ public:
     void InitOpenXR_GLES();
 
     void UpdateFrame();
-
-
 private:
     struct android_app *m_app;
 
@@ -33,6 +31,18 @@ private:
                      XrTime elapsed_us,
                      std::vector<XrCompositionLayerProjectionView> &layerViews,
                      XrCompositionLayerProjection &layer);
+
+    XrActionSet m_actionSet{};
+    XrAction m_moveAction{};
+    XrPath  m_pathLeft{XR_NULL_PATH};
+    XrPath m_pathRight{XR_NULL_PATH};
+
+    XrVector3f m_playerOffset{0.0f, 0.0f, 0.0f};
+    XrTime  m_lastFrameTime{0};
+    float m_moveSpeed{1.0f}; // meters per second
+
+    void SetupInputActions();
+    void PollAndApplyThumbstick(XrTime dpy_time, std::vector<XrView> &views);
 
 public:
 };
