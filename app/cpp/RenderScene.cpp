@@ -1,5 +1,3 @@
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cppcoreguidelines-narrowing-conversions"
 #include <GLES3/gl31.h>
 #include "common/xr_linear.h"
 #include "common/util_egl.h"
@@ -7,7 +5,7 @@
 #include "common/util_shader.h"
 #include "common/util_matrix.h"
 #include "common/util_debugstr.h"
-#include "teapot.h"
+#include "Teapot.h"
 
 static shader_obj_t s_sobj;
 
@@ -169,4 +167,3 @@ int render_gles_scene(XrCompositionLayerProjectionView &layerView, render_target
 
     return 0;
 }
-#pragma clang diagnostic pop
